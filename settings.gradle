@@ -1,0 +1,4 @@
+rootProject.name = 'groovy-plugin-affects-idea-plugin'
+include 'groovy-affects-idea-plugin'
+include 'idea-plugin-standalone'
+

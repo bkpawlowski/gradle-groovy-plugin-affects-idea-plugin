@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'groovy'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    additionalTest {
+        java {
+            srcDirs 'src/additionalTest/java'
+        }
+        groovy {
+            srcDirs 'src/additionalTest/groovy'
+        }
+    }
+}
+
+idea {
+    module {
+        testSourceDirs += file('src/additionalTest/java')
+    }
+}
+
+configurations {
+    additionalTestImplementation.extendsFrom implementation
+    additionalTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+task additionalTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.additionalTest.output.classesDirs
+    classpath = sourceSets.additionalTest.runtimeClasspath
+    shouldRunAfter test
+}
+
+dependencies {
+
+}
